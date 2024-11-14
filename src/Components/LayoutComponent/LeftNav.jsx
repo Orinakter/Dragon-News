@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 const LeftNav = () => {
     const [categories,SetCategories] =useState([]);
+    const [btnName,SetBtnName] = useState(null)
     useEffect(()=>{
         fetch("https://openapi.programming-hero.com/api/news/categories")
         .then(res=>res.json())
@@ -14,7 +15,8 @@ const LeftNav = () => {
            <div className="flex flex-col gap-3 ">
             {
                categories.map(category=>
-               <button className="p-4 rounded-xl bg-gray-200" key={category.category_id}>{category.category_name}</button>) 
+               <button onClick={()=>SetBtnName(category.category_id)}
+                className={`p-4 rounded-xl ${btnName===category.category_id ? "bg-red-300" : "bg-gray-200"}`} key={category.category_id}>{category.category_name}</button>) 
             }
            </div>
         </div>
